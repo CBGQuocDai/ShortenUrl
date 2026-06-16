@@ -1,0 +1,29 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+
+spring:
+  application:
+    name: backend
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        show_sql: true
+        format_sql: true
+jwt:
+  secret: ${JWT_SECRET}
+  duration: ${JWT_EXPIRATION}
+  issuer: ${JWT_ISSUER}
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
