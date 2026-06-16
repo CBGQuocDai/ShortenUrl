@@ -50,8 +50,9 @@ public class JwtFilter extends OncePerRequestFilter {
             UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(u, null, u.getAuthorities());
             authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
             SecurityContextHolder.getContext().setAuthentication(authToken);
-        } catch (JwtException e) {
+        } catch (RuntimeException e) {
             log.warn("Unauthorized request: {}", e.getMessage());
+            SecurityContextHolder.clearContext();
         }
         filterChain.doFilter(request, response);
     }

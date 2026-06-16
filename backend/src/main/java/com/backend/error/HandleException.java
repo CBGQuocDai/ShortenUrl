@@ -3,6 +3,7 @@ package com.backend.error;
 import com.backend.common.dto.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -25,8 +26,17 @@ public class HandleException {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<?> handleValidationException(MethodArgumentNotValidException e) {
-        ErrorCode error = ErrorCode.valueOf(e.getMessage());
-        log.error(e.getMessage());
+        ErrorCode error = e.getBindingResult().getFieldErrors().stream()
+                .findFirst()
+                .map(fe -> {
+                    try {
+                        return ErrorCode.valueOf(fe.getDefaultMessage());
+                    } catch (IllegalArgumentException ex) {
+                        return ErrorCode.NOT_FOUND;
+                    }
+                })
+                .orElse(ErrorCode.NOT_FOUND);
+        log.error("Validation failed: {}", e.getMessage());
         ApiResponse<?> resp = ApiResponse.builder()
                 .code(error.getCode())
                 .message(error.getMessage()).build();

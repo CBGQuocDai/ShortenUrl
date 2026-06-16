@@ -26,10 +26,10 @@ public class ShortenUrlController {
                         .build());
     }
 
-    @PutMapping("/{code}")
-    public ResponseEntity<ApiResponse<ShortenUrlResponse>> putShortenUrl(@PathVariable String code, @Valid @RequestBody CreateRequest req) {
+    @PutMapping("/{id}")
+    public ResponseEntity<ApiResponse<ShortenUrlResponse>> putShortenUrl(@PathVariable Long id, @Valid @RequestBody CreateRequest req) {
         return ResponseEntity.ok(ApiResponse.<ShortenUrlResponse>builder()
-                .data(shortenUrlService.updateShortenUrl(code, req))
+                .data(shortenUrlService.updateShortenUrl(id, req))
                 .build());
     }
 
@@ -39,14 +39,14 @@ public class ShortenUrlController {
                 .location(URI.create(shortenUrlService.retrieveOriginalUrl(code))).build();
     }
     @GetMapping
-    public ResponseEntity<ApiResponse<?>> getStaticUrl(
+    public ResponseEntity<ApiResponse<?>> getStat(
             @RequestParam(required = false, defaultValue = "0") Integer page,
             @RequestParam(required = false, defaultValue = "10") Integer size){
-        return ResponseEntity.ok(ApiResponse.builder().data(shortenUrlService.getStaticUrl(page, size)).build());
+        return ResponseEntity.ok(ApiResponse.builder().data(shortenUrlService.getStat(page, size)).build());
     }
-    @DeleteMapping("/{code}")
-    public ResponseEntity<?> deleteShortenUrl(@PathVariable String code) {
-        shortenUrlService.deleteShortenUrl(code);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteShortenUrl(@PathVariable Long id) {
+        shortenUrlService.deleteShortenUrl(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

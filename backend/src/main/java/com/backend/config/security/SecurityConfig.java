@@ -1,6 +1,7 @@
 package com.backend.config.security;
 
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -18,7 +19,10 @@ import java.util.List;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
+    private final AuthEntryPoint authEntryPoint;
+
     private static final String[] AUTH_WHITELIST = {
             "/auth/login", "/auth/register",
     };
@@ -28,7 +32,7 @@ public class SecurityConfig {
                 .cors(cors ->
                         cors.configurationSource(corsConfigurationSource()))
                 .csrf(AbstractHttpConfigurer::disable)
-                .cors(AbstractHttpConfigurer::disable)
+                .exceptionHandling(eh -> eh.authenticationEntryPoint(authEntryPoint))
                 .authorizeHttpRequests(req ->
                         req.requestMatchers(HttpMethod.OPTIONS).permitAll()
                                 .requestMatchers(AUTH_WHITELIST).permitAll()
