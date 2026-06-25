@@ -53,10 +53,10 @@ import { ApiService } from '../../services/api.service';
             <button
               type="submit"
               class="btn btn-primary"
-              style="height: 48px"
+              style="height: 48px; min-width: 100px;"
               [disabled]="form.invalid"
             >
-              Shorten
+              Create
             </button>
           </form>
           @if (errorMsg()) {
