@@ -27,7 +27,7 @@ func init() {
 		// Use docker service name as default or localized testing
 		ssoHost = "http://localhost:8080"
 	}
-	ssoApiUrl = ssoHost + "/auth/me"
+	ssoApiUrl = ssoHost + "/api/auth/me"
 }
 
 func AuthMiddleware() gin.HandlerFunc {

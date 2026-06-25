@@ -41,4 +41,8 @@ export class ApiService {
   deleteShorten(shortCode: string) {
     return this.http.delete('/api/v1/shorten/' + shortCode);
   }
+
+  getOriginalUrl(shortCode: string) {
+    return this.http.get('/api/v1/shorten/' + shortCode);
+  }
 }

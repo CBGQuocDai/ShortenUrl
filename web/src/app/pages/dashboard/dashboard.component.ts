@@ -85,11 +85,11 @@ import { ApiService } from '../../services/api.service';
                   >
                     <td style="padding: 1rem; color: var(--accent-color)">
                       <a
-                        [href]="'http://localhost:8081/api/shorten/' + item.shortCode"
+                        [href]="'http://localhost:3000/s/' + item.shortCode"
                         target="_blank"
                         style="color: inherit; text-decoration: none; font-weight: 500"
                       >
-                        localhost:8081/api/shorten/{{ item.shortCode }}
+                        localhost:3000/s/{{ item.shortCode }}
                       </a>
                     </td>
                     <td
