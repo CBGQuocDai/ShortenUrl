@@ -85,11 +85,11 @@ import { ApiService } from '../../services/api.service';
                   >
                     <td style="padding: 1rem; color: var(--accent-color)">
                       <a
-                        [href]="'http://localhost:3000/s/' + item.shortCode"
+                        [href]="shortUrlBase + '/s/' + item.shortCode"
                         target="_blank"
                         style="color: inherit; text-decoration: none; font-weight: 500"
                       >
-                        localhost:3000/s/{{ item.shortCode }}
+                        {{ shortUrlBase.replace('https://', '') }}/s/{{ item.shortCode }}
                       </a>
                     </td>
                     <td
@@ -157,6 +157,7 @@ import { ApiService } from '../../services/api.service';
 export class DashboardComponent implements OnInit {
   api = inject(ApiService);
   fb = inject(FormBuilder);
+  readonly shortUrlBase = 'https://shortenurl.daidq.io.vn';
 
   urls = signal<any[]>([]);
   errorMsg = signal('');

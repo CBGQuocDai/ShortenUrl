@@ -14,6 +14,7 @@ const DURATION = __ENV.DURATION || '45s';
 const PRE_ALLOCATED_VUS = Number(__ENV.PRE_ALLOCATED_VUS || 200);
 const MAX_VUS = Number(__ENV.MAX_VUS || 1000);
 const FAST_CHECK = (__ENV.FAST_CHECK || 'false').toLowerCase() === 'true';
+const REQUEST_TIMEOUT = __ENV.REQUEST_TIMEOUT || '30s';
 
 const createdUrls = new Counter('shorten_created_urls');
 const authFailures = new Counter('auth_failures');
@@ -138,6 +139,7 @@ function resolveShortUrl(codes) {
   const res = http.get(`${BASE_URL}/api/v1/shorten/${code}`, {
     tags: { name: 'shorten_resolve' },
     responseType: FAST_CHECK ? 'none' : 'text',
+    timeout: REQUEST_TIMEOUT,
   });
 
   const ok = FAST_CHECK
@@ -157,6 +159,7 @@ function listShortUrls(token) {
   const res = http.get(`${BASE_URL}/api/v1/shorten/list?page=1&size=20`, {
     headers: { Authorization: `Bearer ${token}` },
     tags: { name: 'shorten_list' },
+    timeout: REQUEST_TIMEOUT,
   });
 
   const ok = check(res, {
@@ -173,7 +176,7 @@ function jsonParams(name, token = '') {
     headers.Authorization = `Bearer ${token}`;
   }
 
-  return { headers, tags: { name } };
+  return { headers, tags: { name }, timeout: REQUEST_TIMEOUT };
 }
 
 function profileOptions(profile) {
@@ -242,6 +245,23 @@ function profileOptions(profile) {
       thresholds: {
         http_req_failed: ['rate<0.02'],
         http_req_duration: ['p(95)<1000', 'p(99)<2500'],
+        resolve_ok: ['rate>0.98'],
+      },
+    },
+    cloud_redirect_rate: {
+      scenarios: {
+        redirects: {
+          executor: 'constant-arrival-rate',
+          rate: RATE,
+          timeUnit: '1s',
+          duration: DURATION,
+          preAllocatedVUs: Number(__ENV.PRE_ALLOCATED_VUS || Math.max(1000, RATE * 3)),
+          maxVUs: Number(__ENV.MAX_VUS || Math.max(3000, RATE * 8)),
+        },
+      },
+      thresholds: {
+        http_req_failed: ['rate<0.02'],
+        http_req_duration: ['p(95)<2000', 'p(99)<6000'],
         resolve_ok: ['rate>0.98'],
       },
     },
