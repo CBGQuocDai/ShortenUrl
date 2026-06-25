@@ -7,6 +7,8 @@ import (
 	"shorten-api/internal/dto"
 	"shorten-api/internal/model"
 	"shorten-api/internal/repository"
+	"strconv"
+	"sync"
 	"time"
 
 	"github.com/redis/go-redis/v9"
@@ -15,13 +17,18 @@ import (
 type ShortenUrlService struct {
 	shortenUrlRepository repository.ShortenUrlRepository
 	rdb                  *redis.Client
+	clicks               chan uint64
+	idCache              sync.Map
 }
 
 func NewShortenUrlService(shortenUrlRepository repository.ShortenUrlRepository, rdb *redis.Client) *ShortenUrlService {
-	return &ShortenUrlService{
+	s := &ShortenUrlService{
 		shortenUrlRepository: shortenUrlRepository,
 		rdb:                  rdb,
+		clicks:               make(chan uint64, 100000),
 	}
+	go s.flushAccessCounts()
+	return s
 }
 
 func (s *ShortenUrlService) CreateShortenUrl(req *dto.CreateShortenRequest, userId uint64) (*dto.ShortenUrlResponse, error) {
@@ -47,6 +54,8 @@ func (s *ShortenUrlService) CreateShortenUrl(req *dto.CreateShortenRequest, user
 	// Cache the new url mapping
 	ctx := context.Background()
 	s.rdb.Set(ctx, "url:"+url.ShortCode, url.URL, 24*time.Hour)
+	s.rdb.Set(ctx, "url_id:"+url.ShortCode, url.ID, 24*time.Hour)
+	s.idCache.Store(url.ShortCode, url.ID)
 
 	return &dto.ShortenUrlResponse{
 		ID:          url.ID,
@@ -105,13 +114,7 @@ func (s *ShortenUrlService) GetOriginalUrl(shortenCode string) (string, error) {
 	ctx := context.Background()
 	cachedUrl, err := s.rdb.Get(ctx, "url:"+shortenCode).Result()
 	if err == nil && cachedUrl != "" {
-		// Asynchronously update access count in DB
-		go func() {
-			data, _ := s.shortenUrlRepository.GetUrlByShortenCode(shortenCode)
-			if data != nil {
-				_ = s.shortenUrlRepository.UpdateAccessCount(data.ID)
-			}
-		}()
+		s.queueAccessCount(ctx, shortenCode, 0)
 		return cachedUrl, nil
 	}
 
@@ -121,16 +124,88 @@ func (s *ShortenUrlService) GetOriginalUrl(shortenCode string) (string, error) {
 		return "", err
 	}
 	if data != nil {
-		err := s.shortenUrlRepository.UpdateAccessCount(data.ID)
-		if err != nil {
-			slog.Error("Error updating access count:", "err", err)
-			return "", err
-		}
 		// Cache it for future access
 		s.rdb.Set(ctx, "url:"+shortenCode, data.URL, 24*time.Hour)
+		s.rdb.Set(ctx, "url_id:"+shortenCode, data.ID, 24*time.Hour)
+		s.idCache.Store(shortenCode, data.ID)
+		s.queueAccessCount(ctx, shortenCode, data.ID)
 		return data.URL, nil
 	}
 	return "", nil
+}
+
+func (s *ShortenUrlService) queueAccessCount(ctx context.Context, shortenCode string, id uint64) {
+	if id == 0 {
+		if cachedID, ok := s.idCache.Load(shortenCode); ok {
+			if parsedID, ok := cachedID.(uint64); ok {
+				id = parsedID
+			}
+		}
+	}
+
+	if id == 0 {
+		cachedID, err := s.rdb.Get(ctx, "url_id:"+shortenCode).Result()
+		if err == nil && cachedID != "" {
+			parsedID, parseErr := strconv.ParseUint(cachedID, 10, 64)
+			if parseErr == nil {
+				id = parsedID
+				s.idCache.Store(shortenCode, id)
+			}
+		}
+	}
+
+	if id == 0 {
+		data, err := s.shortenUrlRepository.GetUrlByShortenCode(shortenCode)
+		if err != nil || data == nil {
+			if err != nil {
+				slog.Error("Error getting URL for access count update:", "err", err)
+			}
+			return
+		}
+		id = data.ID
+		s.rdb.Set(ctx, "url_id:"+shortenCode, id, 24*time.Hour)
+		s.idCache.Store(shortenCode, id)
+	}
+
+	select {
+	case s.clicks <- id:
+	default:
+		slog.Warn("Access count queue is full; dropping click", "shortenCode", shortenCode)
+	}
+}
+
+func (s *ShortenUrlService) flushAccessCounts() {
+	ticker := time.NewTicker(time.Second)
+	defer ticker.Stop()
+
+	counts := make(map[uint64]uint64)
+	flush := func() {
+		if len(counts) == 0 {
+			return
+		}
+
+		batch := make(map[uint64]uint64, len(counts))
+		for id, count := range counts {
+			batch[id] = count
+			delete(counts, id)
+		}
+
+		if err := s.shortenUrlRepository.UpdateAccessCounts(batch); err != nil {
+			slog.Error("Error flushing access counts:", "err", err)
+		}
+	}
+
+	for {
+		select {
+		case id := <-s.clicks:
+			counts[id]++
+			if len(counts) >= 1000 {
+				flush()
+			}
+		case <-ticker.C:
+			flush()
+		}
+	}
 }
 
 func (s *ShortenUrlService) DeleteShortenUrl(shortenCode string, userId uint64) error {

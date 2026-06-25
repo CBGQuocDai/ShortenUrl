@@ -9,7 +9,9 @@ import (
 )
 
 func SetupRouter(db *gorm.DB, rdb *redis.Client) *gin.Engine {
-	r := gin.Default()
+	gin.SetMode(gin.ReleaseMode)
+	r := gin.New()
+	r.Use(gin.Recovery())
 
 	r.GET("/health", func(ctx *gin.Context) {
 		ctx.JSON(http.StatusOK, gin.H{

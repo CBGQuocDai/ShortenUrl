@@ -59,6 +59,26 @@ func (r *ShortenUrlRepository) UpdateAccessCount(id uint64) error {
 	return r.db.Model(&model.ShortenUrl{}).Where("ID = ?", id).Update("access_count", gorm.Expr("access_count + 1")).Error
 }
 
+func (r *ShortenUrlRepository) UpdateAccessCounts(counts map[uint64]uint64) error {
+	return r.db.Transaction(func(tx *gorm.DB) error {
+		for id, count := range counts {
+			if count == 0 {
+				continue
+			}
+
+			err := tx.Model(&model.ShortenUrl{}).
+				Where("ID = ?", id).
+				Update("access_count", gorm.Expr("access_count + ?", count)).
+				Error
+			if err != nil {
+				return err
+			}
+		}
+
+		return nil
+	})
+}
+
 func (r *ShortenUrlRepository) DeleteShortenUrlByShortenCode(shortenCode string, userId uint64) error {
 	return r.db.Where("short_code = ? AND user_id = ?", shortenCode, userId).Delete(&model.ShortenUrl{}).Error
 }
