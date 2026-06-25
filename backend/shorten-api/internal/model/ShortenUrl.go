@@ -19,6 +19,7 @@ type ShortenUrl struct {
 	CreatedAt   time.Time `gorm:"column:created_at" json:"created_at"`
 	UpdatedAt   time.Time `gorm:"column:updated_at" json:"updated_at"`
 	AccessCount uint64    `gorm:"column:access_count;default:0" json:"access_count"`
+	UserId      uint64    `gorm:"column:user_id;not null" json:"user_id"`
 }
 
 func (ShortenUrl) TableName() string {

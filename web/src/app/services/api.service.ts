@@ -20,7 +20,7 @@ export class ApiService {
   getMe() {
     this.http.get('/api/auth/me').subscribe({
       next: (res: any) => this.currentUser.set(res.data),
-      error: () => this.logout()
+      error: () => this.logout(),
     });
   }
 
@@ -31,14 +31,14 @@ export class ApiService {
   }
 
   getStat(page: number = 0, size: number = 10) {
-    return this.http.get('/api/shorten?page=' + page + '&size=' + size);
+    return this.http.get('/api/v1/shorten/list?page=' + page + '&size=' + size);
   }
 
   createShorten(data: any) {
-    return this.http.post('/api/shorten/create', data);
+    return this.http.post('/api/v1/shorten/create', data);
   }
 
-  deleteShorten(id: number) {
-    return this.http.delete('/api/shorten/' + id);
+  deleteShorten(shortCode: string) {
+    return this.http.delete('/api/v1/shorten/' + shortCode);
   }
 }

@@ -8,11 +8,18 @@ import { ApiService } from '../../services/api.service';
   imports: [ReactiveFormsModule],
   template: `
     <div class="dashboard-layout">
-      <header class="glass-panel" style="padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; border-radius: 0; border-left: none; border-right: none; border-top: none;">
-        <h1 style="font-size: 1.5rem; letter-spacing: 1px">Mini<span style="color:var(--accent-color)">Ly</span></h1>
+      <header
+        class="glass-panel"
+        style="padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; border-radius: 0; border-left: none; border-right: none; border-top: none;"
+      >
+        <h1 style="font-size: 1.5rem; letter-spacing: 1px">
+          Mini<span style="color:var(--accent-color)">Ly</span>
+        </h1>
         <div style="display: flex; align-items: center; gap: 1rem;">
           <span style="color: var(--text-secondary)">{{ api.currentUser()?.username }}</span>
-          <button class="btn btn-danger" style="padding: 0.5rem 1rem" (click)="api.logout()">Logout</button>
+          <button class="btn btn-danger" style="padding: 0.5rem 1rem" (click)="api.logout()">
+            Logout
+          </button>
         </div>
       </header>
 
@@ -20,14 +27,37 @@ import { ApiService } from '../../services/api.service';
         <!-- Create Section -->
         <div class="glass-panel" style="padding: 2rem; margin-bottom: 2rem">
           <h3 style="margin-bottom: 1rem">Create new Short URL</h3>
-          <form [formGroup]="form" (ngSubmit)="onCreate()" style="display: flex; gap: 1rem; align-items: flex-start">
+          <form
+            [formGroup]="form"
+            (ngSubmit)="onCreate()"
+            style="display: flex; gap: 1rem; align-items: flex-start"
+          >
             <div style="flex: 2">
-              <input type="url" formControlName="url" class="input-field" placeholder="https://very-long-url.com/example" style="margin-bottom: 0">
+              <input
+                type="url"
+                formControlName="url"
+                class="input-field"
+                placeholder="https://very-long-url.com/example"
+                style="margin-bottom: 0"
+              />
             </div>
             <div style="flex: 1">
-              <input type="text" formControlName="shortCode" class="input-field" placeholder="custom-alias" style="margin-bottom: 0">
+              <input
+                type="text"
+                formControlName="shortCode"
+                class="input-field"
+                placeholder="custom-alias"
+                style="margin-bottom: 0"
+              />
             </div>
-            <button type="submit" class="btn btn-primary" style="height: 48px" [disabled]="form.invalid">Shorten</button>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              style="height: 48px"
+              [disabled]="form.invalid"
+            >
+              Shorten
+            </button>
           </form>
           @if (errorMsg()) {
             <div style="color: #fca5a5; margin-top: 1rem; font-size: 0.9rem">{{ errorMsg() }}</div>
@@ -49,26 +79,50 @@ import { ApiService } from '../../services/api.service';
               </thead>
               <tbody>
                 @for (item of urls(); track item.shortCode) {
-                  <tr style="border-bottom: 1px solid var(--glass-border); transition: background-color 0.2s" class="row-hover">
+                  <tr
+                    style="border-bottom: 1px solid var(--glass-border); transition: background-color 0.2s"
+                    class="row-hover"
+                  >
                     <td style="padding: 1rem; color: var(--accent-color)">
-                      <a [href]="'http://localhost:8081/api/shorten/' + item.shortCode" target="_blank" style="color: inherit; text-decoration: none; font-weight: 500">
+                      <a
+                        [href]="'http://localhost:8081/api/shorten/' + item.shortCode"
+                        target="_blank"
+                        style="color: inherit; text-decoration: none; font-weight: 500"
+                      >
                         localhost:8081/api/shorten/{{ item.shortCode }}
                       </a>
                     </td>
-                    <td style="padding: 1rem; max-width: 300px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" [title]="item.url">
+                    <td
+                      style="padding: 1rem; max-width: 300px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
+                      [title]="item.url"
+                    >
                       {{ item.url }}
                     </td>
                     <td style="padding: 1rem">
-                      <span style="background: rgba(59,130,246,0.1); padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 600">{{ item.accessCount }}</span>
+                      <span
+                        style="background: rgba(59,130,246,0.1); padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 600"
+                        >{{ item.accessCount }}</span
+                      >
                     </td>
                     <td style="padding: 1rem">
-                      <button class="btn btn-danger" style="padding: 0.4rem 0.8rem; font-size: 0.85rem" (click)="deleteUrl(item)">Delete</button>
+                      <button
+                        class="btn btn-danger"
+                        style="padding: 0.4rem 0.8rem; font-size: 0.85rem"
+                        (click)="deleteUrl(item)"
+                      >
+                        Delete
+                      </button>
                     </td>
                   </tr>
                 }
                 @if (urls().length === 0) {
                   <tr>
-                    <td colspan="4" style="padding: 2rem; text-align: center; color: var(--text-secondary)">No shorten URLs found.</td>
+                    <td
+                      colspan="4"
+                      style="padding: 2rem; text-align: center; color: var(--text-secondary)"
+                    >
+                      No shorten URLs found.
+                    </td>
                   </tr>
                 }
               </tbody>
@@ -78,25 +132,27 @@ import { ApiService } from '../../services/api.service';
       </main>
     </div>
   `,
-  styles: [`
-    .dashboard-layout {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-    .container {
-      max-width: 1000px;
-      margin: 2rem auto;
-      width: 100%;
-      padding: 0 1rem;
-    }
-    .row-hover:hover {
-      background-color: rgba(255,255,255,0.02);
-    }
-    .table-container {
-      overflow-x: auto;
-    }
-  `]
+  styles: [
+    `
+      .dashboard-layout {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+      .container {
+        max-width: 1000px;
+        margin: 2rem auto;
+        width: 100%;
+        padding: 0 1rem;
+      }
+      .row-hover:hover {
+        background-color: rgba(255, 255, 255, 0.02);
+      }
+      .table-container {
+        overflow-x: auto;
+      }
+    `,
+  ],
 })
 export class DashboardComponent implements OnInit {
   api = inject(ApiService);
@@ -116,34 +172,45 @@ export class DashboardComponent implements OnInit {
   }
 
   loadData() {
-    this.api.getStat(0, 100).subscribe({
+    this.api.getStat(1, 100).subscribe({
+      // Go API pagination usually starts at 1, maybe page=1
       next: (res: any) => {
-        this.urls.set(res.data.content);
-      }
+        // Handle both Spring Page response (res.data.content) and Go array response (res.data)
+        const rawItems = res.data?.content || res.data || [];
+        const items = rawItems.map((i: any) => ({
+          ...i,
+          shortCode: i.shortCode || i.short_code,
+          accessCount: i.accessCount || i.access_count,
+        }));
+        this.urls.set(items);
+      },
     });
   }
 
   onCreate() {
     if (this.form.valid) {
-      this.api.createShorten(this.form.value).subscribe({
-        next: () => {
-          this.form.reset();
-          this.errorMsg.set('');
-          this.loadData();
-        },
-        error: (err) => {
-          this.errorMsg.set(err.error?.error || 'Error creating short URL');
-        }
-      });
+      this.api
+        .createShorten({
+          url: this.form.value.url,
+          shorten_code: this.form.value.shortCode, // Ensure it matches backend snake_case if required
+        })
+        .subscribe({
+          next: () => {
+            this.form.reset();
+            this.errorMsg.set('');
+            this.loadData();
+          },
+          error: (err) => {
+            this.errorMsg.set(err.error?.message || 'Error creating short URL');
+          },
+        });
     }
   }
 
   deleteUrl(item: any) {
-    this.api.deleteShorten(item.id).subscribe({
-      next: () => this.loadData()
+    // Backend DeleteShortenUrl receives shortenCode
+    this.api.deleteShorten(item.shortCode || item.short_code).subscribe({
+      next: () => this.loadData(),
     });
-    // wait! getStat only returns shortCode, url, accessCount!
-    // We need to change the Go API GetStat to return ID or change delete to use shortCode.
-    // Let's assume we can fetch by shortCode, but backend deleteShorten takes ID.
   }
 }

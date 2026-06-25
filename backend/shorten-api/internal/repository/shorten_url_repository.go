@@ -28,10 +28,10 @@ func (r *ShortenUrlRepository) GetUrlByShortenCode(shortenCode string) (*model.S
 	}
 	return &shortenUrl, nil
 }
-func (r *ShortenUrlRepository) GetListShortenUrl(page int, size int) ([]*model.ShortenUrl, error) {
+func (r *ShortenUrlRepository) GetListShortenUrl(page int, size int, userId uint64) ([]*model.ShortenUrl, error) {
 	var shortenUrls []*model.ShortenUrl
 	offset := (page - 1) * size
-	err := r.db.Offset(offset).Limit(size).Find(&shortenUrls).Error
+	err := r.db.Where("user_id = ?", userId).Offset(offset).Limit(size).Find(&shortenUrls).Error
 	if err != nil {
 		return nil, err
 	}
@@ -48,7 +48,7 @@ func (r *ShortenUrlRepository) UpdateShortenUrl(shortenUrl *model.ShortenUrl) er
 		updates["short_code"] = shortenUrl.ShortCode
 	}
 
-	err := r.db.Model(&model.ShortenUrl{}).Where("id = ?", shortenUrl.ID).Updates(updates).Error
+	err := r.db.Model(&model.ShortenUrl{}).Where("id = ? AND user_id = ?", shortenUrl.ID, shortenUrl.UserId).Updates(updates).Error
 	if err != nil {
 		return err
 	}
@@ -59,6 +59,6 @@ func (r *ShortenUrlRepository) UpdateAccessCount(id uint64) error {
 	return r.db.Model(&model.ShortenUrl{}).Where("ID = ?", id).Update("access_count", gorm.Expr("access_count + 1")).Error
 }
 
-func (r *ShortenUrlRepository) DeleteShortenUrlByShortenCode(shortenCode string) error {
-	return r.db.Where("short_code = ?", shortenCode).Delete(&model.ShortenUrl{}).Error
+func (r *ShortenUrlRepository) DeleteShortenUrlByShortenCode(shortenCode string, userId uint64) error {
+	return r.db.Where("short_code = ? AND user_id = ?", shortenCode, userId).Delete(&model.ShortenUrl{}).Error
 }

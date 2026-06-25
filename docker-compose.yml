@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   # ==========================================
@@ -7,10 +7,8 @@ services:
   sso-db:
     image: postgres:15-alpine
     restart: always
-    environment:
-      POSTGRES_USER: sso_user
-      POSTGRES_PASSWORD: sso_password
-      POSTGRES_DB: sso_db
+    env_file:
+      - .env.sso.db
     ports:
       - "5432:5432"
     volumes:
@@ -26,21 +24,14 @@ services:
 
   sso-service:
     build:
-      context: ./SSO
+      context: ./backend/SSO
       dockerfile: Dockerfile
     restart: always
     ports:
       - "8080:8080"
       - "9090:9090"
-    environment:
-      - DB_URL=jdbc:postgresql://sso-db:5432/sso_db?useSSL=false
-      - DB_USER=sso_user
-      - DB_PASSWORD=sso_password
-      - REDIS_HOST=sso-redis
-      - REDIS_PORT=6379
-      - JWT_SECRET=super_secret_jwt_key_that_is_long_enough
-      - JWT_EXPIRATION=3600
-      - JWT_ISSUER=sso_service
+    env_file:
+      - .env.sso.service
     depends_on:
       - sso-db
       - sso-redis
@@ -49,16 +40,14 @@ services:
   # Go ShortenUrl Service & DB & Cache
   # ==========================================
   shorten-db:
-    image: postgres:15-alpine
+    image: mysql:8.0
     restart: always
-    environment:
-      POSTGRES_USER: shorten_user
-      POSTGRES_PASSWORD: shorten_password
-      POSTGRES_DB: shorten_db
+    env_file:
+      - .env.shorten.db
     ports:
-      - "5433:5432"
+      - "5433:3306"
     volumes:
-      - shorten_db_data:/var/lib/postgresql/data
+      - shorten_db_data:/var/lib/mysql
 
   shorten-redis:
     image: redis:7-alpine
@@ -70,18 +59,13 @@ services:
 
   go-shorten-service:
     build:
-      context: ./go-shorten
+      context: ./backend/shorten-api
       dockerfile: Dockerfile
     restart: always
     ports:
-      - "8081:8081"
-    environment:
-      - DB_URL=host=shorten-db user=shorten_user password=shorten_password dbname=shorten_db port=5432 sslmode=disable
-      - REDIS_HOST=shorten-redis
-      - REDIS_PORT=6379
-      - JWT_SECRET=super_secret_jwt_key_that_is_long_enough
-      - PORT=8081
-      - SSO_GRPC_HOST=sso-service:9090
+      - "8081:4000"
+    env_file:
+      - .env.shorten.service
     depends_on:
       - shorten-db
       - shorten-redis

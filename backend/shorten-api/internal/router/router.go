@@ -4,10 +4,11 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/redis/go-redis/v9"
 	"gorm.io/gorm"
 )
 
-func SetupRouter(db *gorm.DB) *gin.Engine {
+func SetupRouter(db *gorm.DB, rdb *redis.Client) *gin.Engine {
 	r := gin.Default()
 
 	r.GET("/health", func(ctx *gin.Context) {
@@ -18,7 +19,7 @@ func SetupRouter(db *gorm.DB) *gin.Engine {
 
 	api := r.Group("/api/v1")
 
-	RegisterShortenRoutes(api, db)
+	RegisterShortenRoutes(api, db, rdb)
 
 	return r
 }

@@ -19,6 +19,8 @@ func NewShortenController(shortenService service.ShortenUrlService) *ShortenCont
 }
 
 func (c *ShortenController) CreateShortenUrl(ctx *gin.Context) {
+	userIdContext := ctx.MustGet("userId").(int64)
+	userId := uint64(userIdContext)
 	var req dto.CreateShortenRequest
 
 	if err := ctx.ShouldBindJSON(&req); err != nil {
@@ -26,7 +28,7 @@ func (c *ShortenController) CreateShortenUrl(ctx *gin.Context) {
 		return
 	}
 
-	data, err := c.shortenService.CreateShortenUrl(&req)
+	data, err := c.shortenService.CreateShortenUrl(&req, userId)
 	if err != nil {
 		ctx.JSON(400, gin.H{"message": "error creating shortened URL", "error": err.Error()})
 		return
@@ -55,6 +57,8 @@ func (c *ShortenController) GetOriginalUrl(ctx *gin.Context) {
 }
 
 func (c *ShortenController) UpdateShortenUrl(ctx *gin.Context) {
+	userIdContext := ctx.MustGet("userId").(int64)
+	userId := uint64(userIdContext)
 	idStr := ctx.Param("id")
 	id, err := strconv.ParseUint(idStr, 10, 64)
 	if err != nil {
@@ -68,7 +72,7 @@ func (c *ShortenController) UpdateShortenUrl(ctx *gin.Context) {
 		return
 	}
 
-	err = c.shortenService.UpdateShortenUrl(&req, id)
+	err = c.shortenService.UpdateShortenUrl(&req, id, userId)
 	if err != nil {
 		ctx.JSON(400, gin.H{"message": "error updating shortened URL", "error": err.Error()})
 		return
@@ -80,6 +84,8 @@ func (c *ShortenController) UpdateShortenUrl(ctx *gin.Context) {
 }
 
 func (c *ShortenController) GetListShortenUrl(ctx *gin.Context) {
+	userIdContext := ctx.MustGet("userId").(int64)
+	userId := uint64(userIdContext)
 	pageStr := ctx.DefaultQuery("page", "1")
 	sizeStr := ctx.DefaultQuery("size", "10")
 
@@ -91,7 +97,7 @@ func (c *ShortenController) GetListShortenUrl(ctx *gin.Context) {
 		return
 	}
 
-	data, err := c.shortenService.GetListShortenUrl(page, size)
+	data, err := c.shortenService.GetListShortenUrl(page, size, userId)
 	if err != nil {
 		ctx.JSON(400, gin.H{"message": "error getting list of shortened URLs", "error": err.Error()})
 		return
@@ -104,13 +110,15 @@ func (c *ShortenController) GetListShortenUrl(ctx *gin.Context) {
 }
 
 func (c *ShortenController) DeleteShortenUrl(ctx *gin.Context) {
+	userIdContext := ctx.MustGet("userId").(int64)
+	userId := uint64(userIdContext)
 	shortenCode := ctx.Param("shortenCode")
 	if shortenCode == "" {
 		ctx.JSON(400, gin.H{"message": "missing shortenCode parameter"})
 		return
 	}
 
-	err := c.shortenService.DeleteShortenUrl(shortenCode)
+	err := c.shortenService.DeleteShortenUrl(shortenCode, userId)
 	if err != nil {
 		ctx.JSON(400, gin.H{"message": "error deleting shortened URL", "error": err.Error()})
 		return
