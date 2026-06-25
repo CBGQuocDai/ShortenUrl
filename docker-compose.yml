@@ -1,0 +1,108 @@
+version: '3.8'
+
+services:
+  # ==========================================
+  # SSO Service & DB & Cache
+  # ==========================================
+  sso-db:
+    image: postgres:15-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: sso_user
+      POSTGRES_PASSWORD: sso_password
+      POSTGRES_DB: sso_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - sso_db_data:/var/lib/postgresql/data
+
+  sso-redis:
+    image: redis:7-alpine
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - sso_redis_data:/data
+
+  sso-service:
+    build:
+      context: ./SSO
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "8080:8080"
+      - "9090:9090"
+    environment:
+      - DB_URL=jdbc:postgresql://sso-db:5432/sso_db?useSSL=false
+      - DB_USER=sso_user
+      - DB_PASSWORD=sso_password
+      - REDIS_HOST=sso-redis
+      - REDIS_PORT=6379
+      - JWT_SECRET=super_secret_jwt_key_that_is_long_enough
+      - JWT_EXPIRATION=3600
+      - JWT_ISSUER=sso_service
+    depends_on:
+      - sso-db
+      - sso-redis
+
+  # ==========================================
+  # Go ShortenUrl Service & DB & Cache
+  # ==========================================
+  shorten-db:
+    image: postgres:15-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: shorten_user
+      POSTGRES_PASSWORD: shorten_password
+      POSTGRES_DB: shorten_db
+    ports:
+      - "5433:5432"
+    volumes:
+      - shorten_db_data:/var/lib/postgresql/data
+
+  shorten-redis:
+    image: redis:7-alpine
+    restart: always
+    ports:
+      - "6380:6379"
+    volumes:
+      - shorten_redis_data:/data
+
+  go-shorten-service:
+    build:
+      context: ./go-shorten
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "8081:8081"
+    environment:
+      - DB_URL=host=shorten-db user=shorten_user password=shorten_password dbname=shorten_db port=5432 sslmode=disable
+      - REDIS_HOST=shorten-redis
+      - REDIS_PORT=6379
+      - JWT_SECRET=super_secret_jwt_key_that_is_long_enough
+      - PORT=8081
+      - SSO_GRPC_HOST=sso-service:9090
+    depends_on:
+      - shorten-db
+      - shorten-redis
+      - sso-service
+
+  # ==========================================
+  # Web / Frontend
+  # ==========================================
+  web:
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      - sso-service
+      - go-shorten-service
+
+volumes:
+  sso_db_data:
+  sso_redis_data:
+  shorten_db_data:
+  shorten_redis_data:

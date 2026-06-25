@@ -1,0 +1,79 @@
+====================================================
+  Benchmark — 2026-06-21T18-12-32
+  Backend: http://localhost:8080/api
+  Output:  results/2026-06-21T18-12-32
+====================================================
+[1/4] health check...
+      ✓ {"groups":["liveness","readiness"],"status":"UP"}
+[2/4] login as benchuser01...
+      ✓ token len=203
+[3/4] running scenarios...
+  [1/12] read @ c=10
+[read-c0010] starting: c=10 d=30s warmup=5s
+[read-c0010] sampled 2000 short codes
+[read-c0010] warmup done (0 reqs)
+[read-c0010] done → rps=1495.8 p50=6.3ms p99=12.7ms max=23.3ms err=0.00%
+[read-c0010] wrote results/2026-06-21T18-12-32/read-c0010.json + results/2026-06-21T18-12-32/read-c0010.ndjson
+  [2/12] read @ c=50
+[read-c0050] starting: c=50 d=30s warmup=5s
+[read-c0050] sampled 2000 short codes
+[read-c0050] warmup done (0 reqs)
+[read-c0050] done → rps=2370.6 p50=19.4ms p99=46.1ms max=85.2ms err=0.00%
+[read-c0050] wrote results/2026-06-21T18-12-32/read-c0050.json + results/2026-06-21T18-12-32/read-c0050.ndjson
+  [3/12] read @ c=100
+[read-c0100] starting: c=100 d=30s warmup=5s
+[read-c0100] sampled 2000 short codes
+[read-c0100] warmup done (0 reqs)
+[read-c0100] done → rps=2247.4 p50=39.5ms p99=135.9ms max=405.9ms err=0.00%
+[read-c0100] wrote results/2026-06-21T18-12-32/read-c0100.json + results/2026-06-21T18-12-32/read-c0100.ndjson
+  [4/12] read @ c=200
+[read-c0200] starting: c=200 d=30s warmup=5s
+[read-c0200] sampled 2000 short codes
+[read-c0200] warmup done (0 reqs)
+[read-c0200] done → rps=2260.9 p50=80.8ms p99=307.9ms max=633.7ms err=0.00%
+[read-c0200] wrote results/2026-06-21T18-12-32/read-c0200.json + results/2026-06-21T18-12-32/read-c0200.ndjson
+  [5/12] read @ c=500
+[read-c0500] starting: c=500 d=30s warmup=5s
+[read-c0500] sampled 2000 short codes
+[read-c0500] warmup done (0 reqs)
+[read-c0500] done → rps=2182.8 p50=209.2ms p99=525.9ms max=1008.8ms err=0.00%
+[read-c0500] wrote results/2026-06-21T18-12-32/read-c0500.json + results/2026-06-21T18-12-32/read-c0500.ndjson
+  [6/12] write @ c=10
+[write-c0010] starting: c=10 d=30s warmup=5s
+[write-c0010] warmup done (0 reqs)
+[write-c0010] done → rps=1040.5 p50=9.0ms p99=18.2ms max=36.0ms err=0.00%
+[write-c0010] wrote results/2026-06-21T18-12-32/write-c0010.json + results/2026-06-21T18-12-32/write-c0010.ndjson
+  [7/12] write @ c=50
+[write-c0050] starting: c=50 d=30s warmup=5s
+[write-c0050] warmup done (0 reqs)
+[write-c0050] done → rps=1239.2 p50=37.9ms p99=85.1ms max=147.0ms err=0.00%
+[write-c0050] wrote results/2026-06-21T18-12-32/write-c0050.json + results/2026-06-21T18-12-32/write-c0050.ndjson
+  [8/12] write @ c=100
+[write-c0100] starting: c=100 d=30s warmup=5s
+[write-c0100] warmup done (0 reqs)
+[write-c0100] done → rps=1095.8 p50=85.6ms p99=233.7ms max=376.3ms err=0.00%
+[write-c0100] wrote results/2026-06-21T18-12-32/write-c0100.json + results/2026-06-21T18-12-32/write-c0100.ndjson
+  [9/12] write @ c=200
+[write-c0200] starting: c=200 d=30s warmup=5s
+[write-c0200] warmup done (0 reqs)
+[write-c0200] done → rps=1096.8 p50=172.9ms p99=539.4ms max=1059.3ms err=0.00%
+[write-c0200] wrote results/2026-06-21T18-12-32/write-c0200.json + results/2026-06-21T18-12-32/write-c0200.ndjson
+  [10/12] mixed @ c=50
+[mixed-c0050] starting: c=50 d=30s warmup=5s read=0.8
+[mixed-c0050] warmup done (0 reqs)
+[mixed-c0050] done → rps=1401.4 p50=32.5ms p99=84.6ms max=157.3ms err=0.00%
+[mixed-c0050] wrote results/2026-06-21T18-12-32/mixed-c0050.json + results/2026-06-21T18-12-32/mixed-c0050.ndjson
+  [11/12] mixed @ c=100
+[mixed-c0100] starting: c=100 d=30s warmup=5s read=0.8
+[mixed-c0100] warmup done (0 reqs)
+[mixed-c0100] done → rps=1411.0 p50=59.6ms p99=222.2ms max=435.1ms err=0.00%
+[mixed-c0100] wrote results/2026-06-21T18-12-32/mixed-c0100.json + results/2026-06-21T18-12-32/mixed-c0100.ndjson
+  [12/12] mixed @ c=200
+[mixed-c0200] starting: c=200 d=30s warmup=5s read=0.8
+[mixed-c0200] warmup done (0 reqs)
+[mixed-c0200] done → rps=1415.3 p50=116.4ms p99=510.4ms max=1152.7ms err=0.00%
+[mixed-c0200] wrote results/2026-06-21T18-12-32/mixed-c0200.json + results/2026-06-21T18-12-32/mixed-c0200.ndjson
+[4/4] writing report...
+[reporter] wrote summary.md + results.json to results/2026-06-21T18-12-32
+
+Done. Open: results/2026-06-21T18-12-32/summary.md

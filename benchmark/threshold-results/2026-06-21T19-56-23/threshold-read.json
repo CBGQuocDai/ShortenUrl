@@ -1,0 +1,1264 @@
+{
+  "name": "threshold-read",
+  "kind": "threshold",
+  "target": "read",
+  "startRps": 500,
+  "endRps": 6000,
+  "stepRps": 500,
+  "stepDurationSec": 20,
+  "concurrency": 64,
+  "steps": [
+    {
+      "targetRps": 500,
+      "durationSec": 20,
+      "achievedRps": 503.15653427449416,
+      "requested": 10122,
+      "stats": {
+        "count": 10058,
+        "ok": 10058,
+        "errors": 0,
+        "errorRate": 0,
+        "elapsedSec": 19.967,
+        "rps": 503.73115640807333,
+        "latencyMs": {
+          "min": 3.68282,
+          "max": 53.736418,
+          "mean": 13.152259380592566,
+          "stddev": 6.275249774865516,
+          "p50": 12.057427,
+          "p90": 20.933381,
+          "p95": 24.675494,
+          "p99": 35.387845
+        },
+        "statusHistogram": {
+          "308": 10058
+        }
+      },
+      "env": {
+        "baseline": {
+          "ts": "2026-06-21T12:56:25.229Z",
+          "jvm": {
+            "found": true,
+            "pid": 32209,
+            "rssKb": 594484,
+            "vszKb": 9832644,
+            "threads": 108,
+            "fds": 174,
+            "cpuPct": 0,
+            "state": "S (sleeping)"
+          },
+          "pg": {
+            "ok": true,
+            "connections": {
+              "total": 20,
+              "byState": {
+                "active": 1,
+                "idle": 19
+              }
+            },
+            "sizes": {
+              "dbBytes": 4668962495,
+              "usersBytes": 1654784,
+              "shortenUrlBytes": 4659216384
+            },
+            "counts": {
+              "users": 8707,
+              "urls": 23218573
+            }
+          },
+          "system": {
+            "cores": 8,
+            "loadAvg": {
+              "1m": 10.99,
+              "5m": 13.61,
+              "15m": 14.22
+            },
+            "mem": {
+              "totalBytes": 16461279232,
+              "freeBytes": 6305374208,
+              "usedBytes": 10155905024,
+              "freePct": 38.30427829535041
+            }
+          },
+          "nodeClients": [
+            {
+              "pid": 228083,
+              "rssKb": 62228,
+              "vszKb": 1317760,
+              "cpuPct": 6,
+              "kind": "threshold-read"
+            }
+          ]
+        },
+        "during": {
+          "ts": "2026-06-21T12:56:46.196Z",
+          "jvm": {
+            "found": true,
+            "pid": 32209,
+            "rssKb": 594620,
+            "vszKb": 9833668,
+            "threads": 108,
+            "fds": 199,
+            "cpuPct": 0,
+            "state": "S (sleeping)"
+          },
+          "pg": {
+            "ok": true,
+            "connections": {
+              "total": 21,
+              "byState": {
+                "active": 1,
+                "idle": 20
+              }
+            },
+            "sizes": {
+              "dbBytes": 4669273791,
+              "usersBytes": 1654784,
+              "shortenUrlBytes": 4659527680
+            },
+            "counts": {
+              "users": 8707,
+              "urls": 23218573
+            }
+          },
+          "system": {
+            "cores": 8,
+            "loadAvg": {
+              "1m": 12.23,
+              "5m": 13.67,
+              "15m": 14.22
+            },
+            "mem": {
+              "totalBytes": 16461279232,
+              "freeBytes": 6245453824,
+              "usedBytes": 10215825408,
+              "freePct": 37.9402702303908
+            }
+          },
+          "nodeClients": [
+            {
+              "pid": 228083,
+              "rssKb": 80412,
+              "vszKb": 1333412,
+              "cpuPct": 14.7,
+              "kind": "threshold-read"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "targetRps": 1000,
+      "durationSec": 20,
+      "achievedRps": 1001.9478573569074,
+      "requested": 20061,
+      "stats": {
+        "count": 20038,
+        "ok": 20038,
+        "errors": 0,
+        "errorRate": 0,
+        "elapsedSec": 20.005,
+        "rps": 1001.6495876030992,
+        "latencyMs": {
+          "min": 4.247226,
+          "max": 46.51094,
+          "mean": 19.5056575087334,
+          "stddev": 8.388123972040065,
+          "p50": 18.266225,
+          "p90": 32.155311,
+          "p95": 35.553399,
+          "p99": 40.237718
+        },
+        "statusHistogram": {
+          "308": 20038
+        }
+      },
+      "env": {
+        "baseline": {
+          "ts": "2026-06-21T12:56:47.029Z",
+          "jvm": {
+            "found": true,
+            "pid": 32209,
+            "rssKb": 594620,
+            "vszKb": 9833668,
+            "threads": 108,
+            "fds": 199,
+            "cpuPct": 0.16,
+            "state": "S (sleeping)"
+          },
+          "pg": {
+            "ok": true,
+            "connections": {
+              "total": 21,
+              "byState": {
+                "active": 1,
+                "idle": 20
+              }
+            },
+            "sizes": {
+              "dbBytes": 4669273791,
+              "usersBytes": 1654784,
+              "shortenUrlBytes": 4659527680
+            },
+            "counts": {
+              "users": 8707,
+              "urls": 23218573
+            }
+          },
+          "system": {
+            "cores": 8,
+            "loadAvg": {
+              "1m": 12.23,
+              "5m": 13.67,
+              "15m": 14.22
+            },
+            "mem": {
+              "totalBytes": 16461279232,
+              "freeBytes": 6232899584,
+              "usedBytes": 10228379648,
+              "freePct": 37.864004954630246
+            }
+          },
+          "nodeClients": [
+            {
+              "pid": 228083,
+              "rssKb": 80608,
+              "vszKb": 1333668,
+              "cpuPct": 14.2,
+              "kind": "threshold-read"
+            }
+          ]
+        },
+        "during": {
+          "ts": "2026-06-21T12:57:07.896Z",
+          "jvm": {
+            "found": true,
+            "pid": 32209,
+            "rssKb": 594652,
+            "vszKb": 9833668,
+            "threads": 108,
+            "fds": 239,
+            "cpuPct": 0,
+            "state": "S (sleeping)"
+          },
+          "pg": {
+            "ok": true,
+            "connections": {
+              "total": 21,
+              "byState": {
+                "active": 1,
+                "idle": 20
+              }
+            },
+            "sizes": {
+              "dbBytes": 4669273791,
+              "usersBytes": 1654784,
+              "shortenUrlBytes": 4659527680
+            },
+            "counts": {
+              "users": 8707,
+              "urls": 23218573
+            }
+          },
+          "system": {
+            "cores": 8,
+            "loadAvg": {
+              "1m": 9.26,
+              "5m": 12.9,
+              "15m": 13.95
+            },
+            "mem": {
+              "totalBytes": 16461279232,
+              "freeBytes": 6248181760,
+              "usedBytes": 10213097472,
+              "freePct": 37.956842065189015
+            }
+          },
+          "nodeClients": [
+            {
+              "pid": 228083,
+              "rssKb": 100280,
+              "vszKb": 1355116,
+              "cpuPct": 15.5,
+              "kind": "threshold-read"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "targetRps": 1500,
+      "durationSec": 20,
+      "achievedRps": 1503.1735718926482,
+      "requested": 30077,
+      "stats": {
+        "count": 30013,
+        "ok": 30013,
+        "errors": 0,
+        "errorRate": 0,
+        "elapsedSec": 19.975,
+        "rps": 1502.52816020025,
+        "latencyMs": {
+          "min": 3.616985,
+          "max": 62.336187,
+          "mean": 17.474479572618485,
+          "stddev": 6.9751241921173746,
+          "p50": 16.837167,
+          "p90": 26.350953,
+          "p95": 30.052338,
+          "p99": 37.712416
+        },
+        "statusHistogram": {
+          "308": 30013
+        }
+      },
+      "env": {
+        "baseline": {
+          "ts": "2026-06-21T12:57:08.729Z",
+          "jvm": {
+            "found": true,
+            "pid": 32209,
+            "rssKb": 594652,
+            "vszKb": 9833668,
+            "threads": 108,
+            "fds": 239,
+            "cpuPct": 0.16,
+            "state": "S (sleeping)"
+          },
+          "pg": {
+            "ok": true,
+            "connections": {
+              "total": 21,
+              "byState": {
+                "active": 1,
+                "idle": 20
+              }
+            },
+            "sizes": {
+              "dbBytes": 4669273791,
+              "usersBytes": 1654784,
+              "shortenUrlBytes": 4659527680
+            },
+            "counts": {
+              "users": 8707,
+              "urls": 23218573
+            }
+          },
+          "system": {
+            "cores": 8,
+            "loadAvg": {
+              "1m": 8.6,
+              "5m": 12.7,
+              "15m": 13.88
+            },
+            "mem": {
+              "totalBytes": 16461279232,
+              "freeBytes": 6243999744,
+              "usedBytes": 10217279488,
+              "freePct": 37.93143689502539
+            }
+          },
+          "nodeClients": [
+            {
+              "pid": 228083,
+              "rssKb": 99292,
+              "vszKb": 1355044,
+              "cpuPct": 15.2,
+              "kind": "threshold-read"
+            }
+          ]
+        },
+        "during": {
+          "ts": "2026-06-21T12:57:29.597Z",
+          "jvm": {
+            "found": true,
+            "pid": 32209,
+            "rssKb": 594660,
+            "vszKb": 9833668,
+            "threads": 108,
+            "fds": 239,
+            "cpuPct": 0,
+            "state": "S (sleeping)"
+          },
+          "pg": {
+            "ok": true,
+            "connections": {
+              "total": 21,
+              "byState": {
+                "active": 1,
+                "idle": 20
+              }
+            },
+            "sizes": {
+              "dbBytes": 4669273791,
+              "usersBytes": 1654784,
+              "shortenUrlBytes": 4659527680
+            },
+            "counts": {
+              "users": 8707,
+              "urls": 23218573
+            }
+          },
+          "system": {
+            "cores": 8,
+            "loadAvg": {
+              "1m": 9.74,
+              "5m": 12.66,
+              "15m": 13.84
+            },
+            "mem": {
+              "totalBytes": 16461279232,
+              "freeBytes": 6234812416,
+              "usedBytes": 10226466816,
+              "freePct": 37.87562514509686
+            }
+          },
+          "nodeClients": [
+            {
+              "pid": 228083,
+              "rssKb": 108084,
+              "vszKb": 1362460,
+              "cpuPct": 16.8,
+              "kind": "threshold-read"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "targetRps": 2000,
+      "durationSec": 20,
+      "achievedRps": 1998.2021574111066,
+      "requested": 40012,
+      "stats": {
+        "count": 40007,
+        "ok": 40007,
+        "errors": 0,
+        "errorRate": 0,
+        "elapsedSec": 20.011,
+        "rps": 1999.2504122732498,
+        "latencyMs": {
+          "min": 3.424375,
+          "max": 89.671789,
+          "mean": 18.91005008783469,
+          "stddev": 8.632491222726598,
+          "p50": 17.654832,
+          "p90": 29.035913,
+          "p95": 35.003175,
+          "p99": 49.011636
+        },
+        "statusHistogram": {
+          "308": 40007
+        }
+      },
+      "env": {
+        "baseline": {
+          "ts": "2026-06-21T12:57:30.433Z",
+          "jvm": {
+            "found": true,
+            "pid": 32209,
+            "rssKb": 594660,
+            "vszKb": 9833668,
+            "threads": 108,
+            "fds": 239,
+            "cpuPct": 0,
+            "state": "S (sleeping)"
+          },
+          "pg": {
+            "ok": true,
+            "connections": {
+              "total": 21,
+              "byState": {
+                "active": 1,
+                "idle": 20
+              }
+            },
+            "sizes": {
+              "dbBytes": 4669273791,
+              "usersBytes": 1654784,
+              "shortenUrlBytes": 4659527680
+            },
+            "counts": {
+              "users": 8707,
+              "urls": 23218573
+            }
+          },
+          "system": {
+            "cores": 8,
+            "loadAvg": {
+              "1m": 9.74,
+              "5m": 12.66,
+              "15m": 13.84
+            },
+            "mem": {
+              "totalBytes": 16461279232,
+              "freeBytes": 6226157568,
+              "usedBytes": 10235121664,
+              "freePct": 37.82304813769652
+            }
+          },
+          "nodeClients": [
+            {
+              "pid": 228083,
+              "rssKb": 105756,
+              "vszKb": 1360108,
+              "cpuPct": 16.6,
+              "kind": "threshold-read"
+            }
+          ]
+        },
+        "during": {
+          "ts": "2026-06-21T12:57:51.326Z",
+          "jvm": {
+            "found": true,
+            "pid": 32209,
+            "rssKb": 594588,
+            "vszKb": 9833668,
+            "threads": 107,
+            "fds": 236,
+            "cpuPct": 0,
+            "state": "S (sleeping)"
+          },
+          "pg": {
+            "ok": true,
+            "connections": {
+              "total": 21,
+              "byState": {
+                "active": 1,
+                "idle": 20
+              }
+            },
+            "sizes": {
+              "dbBytes": 4669273791,
+              "usersBytes": 1654784,
+              "shortenUrlBytes": 4659527680
+            },
+            "counts": {
+              "users": 8707,
+              "urls": 23218573
+            }
+          },
+          "system": {
+            "cores": 8,
+            "loadAvg": {
+              "1m": 13.12,
+              "5m": 13.21,
+              "15m": 14
+            },
+            "mem": {
+              "totalBytes": 16461279232,
+              "freeBytes": 6223667200,
+              "usedBytes": 10237612032,
+              "freePct": 37.807919495718565
+            }
+          },
+          "nodeClients": [
+            {
+              "pid": 228083,
+              "rssKb": 113248,
+              "vszKb": 1366068,
+              "cpuPct": 19.3,
+              "kind": "threshold-read"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "targetRps": 2500,
+      "durationSec": 20,
+      "achievedRps": 2365.0032469154307,
+      "requested": 47345,
+      "stats": {
+        "count": 47345,
+        "ok": 47345,
+        "errors": 0,
+        "errorRate": 0,
+        "elapsedSec": 20,
+        "rps": 2367.25,
+        "latencyMs": {
+          "min": 4.542998,
+          "max": 128.677066,
+          "mean": 26.815827391572512,
+          "stddev": 14.1700382108042,
+          "p50": 24.069927,
+          "p90": 45.914759,
+          "p95": 53.409389,
+          "p99": 69.050185
+        },
+        "statusHistogram": {
+          "308": 47345
+        }
+      },
+      "env": {
+        "baseline": {
+          "ts": "2026-06-21T12:57:52.149Z",
+          "jvm": {
+            "found": true,
+            "pid": 32209,
+            "rssKb": 594588,
+            "vszKb": 9833668,
+            "threads": 107,
+            "fds": 236,
+            "cpuPct": 0,
+            "state": "S (sleeping)"
+          },
+          "pg": {
+            "ok": true,
+            "connections": {
+              "total": 21,
+              "byState": {
+                "active": 1,
+                "idle": 20
+              }
+            },
+            "sizes": {
+              "dbBytes": 4669273791,
+              "usersBytes": 1654784,
+              "shortenUrlBytes": 4659527680
+            },
+            "counts": {
+              "users": 8707,
+              "urls": 23218573
+            }
+          },
+          "system": {
+            "cores": 8,
+            "loadAvg": {
+              "1m": 13.12,
+              "5m": 13.21,
+              "15m": 14
+            },
+            "mem": {
+              "totalBytes": 16461279232,
+              "freeBytes": 6230384640,
+              "usedBytes": 10230894592,
+              "freePct": 37.848727016843306
+            }
+          },
+          "nodeClients": [
+            {
+              "pid": 228083,
+              "rssKb": 113296,
+              "vszKb": 1366068,
+              "cpuPct": 19.2,
+              "kind": "threshold-read"
+            }
+          ]
+        },
+        "during": {
+          "ts": "2026-06-21T12:58:13.034Z",
+          "jvm": {
+            "found": true,
+            "pid": 32209,
+            "rssKb": 594596,
+            "vszKb": 9833668,
+            "threads": 107,
+            "fds": 238,
+            "cpuPct": 0,
+            "state": "S (sleeping)"
+          },
+          "pg": {
+            "ok": true,
+            "connections": {
+              "total": 21,
+              "byState": {
+                "active": 1,
+                "idle": 20
+              }
+            },
+            "sizes": {
+              "dbBytes": 4669273791,
+              "usersBytes": 1654784,
+              "shortenUrlBytes": 4659527680
+            },
+            "counts": {
+              "users": 8707,
+              "urls": 23218573
+            }
+          },
+          "system": {
+            "cores": 8,
+            "loadAvg": {
+              "1m": 15.24,
+              "5m": 13.68,
+              "15m": 14.14
+            },
+            "mem": {
+              "totalBytes": 16461279232,
+              "freeBytes": 6254530560,
+              "usedBytes": 10206748672,
+              "freePct": 37.99541014917886
+            }
+          },
+          "nodeClients": [
+            {
+              "pid": 228083,
+              "rssKb": 116668,
+              "vszKb": 1366800,
+              "cpuPct": 22.7,
+              "kind": "threshold-read"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "targetRps": 3000,
+      "durationSec": 20,
+      "achievedRps": 2313.1681486662005,
+      "requested": 46305,
+      "stats": {
+        "count": 46305,
+        "ok": 46305,
+        "errors": 0,
+        "errorRate": 0,
+        "elapsedSec": 20.006,
+        "rps": 2314.555633310007,
+        "latencyMs": {
+          "min": 4.535901,
+          "max": 138.625548,
+          "mean": 27.425452472281687,
+          "stddev": 15.00257239877003,
+          "p50": 24.4426,
+          "p90": 47.571065,
+          "p95": 55.333208,
+          "p99": 72.753835
+        },
+        "statusHistogram": {
+          "308": 46305
+        }
+      },
+      "env": {
+        "baseline": {
+          "ts": "2026-06-21T12:58:13.865Z",
+          "jvm": {
+            "found": true,
+            "pid": 32209,
+            "rssKb": 594596,
+            "vszKb": 9833668,
+            "threads": 107,
+            "fds": 238,
+            "cpuPct": 0.16,
+            "state": "S (sleeping)"
+          },
+          "pg": {
+            "ok": true,
+            "connections": {
+              "total": 21,
+              "byState": {
+                "active": 1,
+                "idle": 20
+              }
+            },
+            "sizes": {
+              "dbBytes": 4669273791,
+              "usersBytes": 1654784,
+              "shortenUrlBytes": 4659527680
+            },
+            "counts": {
+              "users": 8707,
+              "urls": 23218573
+            }
+          },
+          "system": {
+            "cores": 8,
+            "loadAvg": {
+              "1m": 14.02,
+              "5m": 13.46,
+              "15m": 14.06
+            },
+            "mem": {
+              "totalBytes": 16461279232,
+              "freeBytes": 6237020160,
+              "usedBytes": 10224259072,
+              "freePct": 37.8890368852714
+            }
+          },
+          "nodeClients": [
+            {
+              "pid": 228083,
+              "rssKb": 114492,
+              "vszKb": 1364624,
+              "cpuPct": 22.5,
+              "kind": "threshold-read"
+            }
+          ]
+        },
+        "during": {
+          "ts": "2026-06-21T12:58:34.768Z",
+          "jvm": {
+            "found": true,
+            "pid": 32209,
+            "rssKb": 594616,
+            "vszKb": 9833668,
+            "threads": 107,
+            "fds": 239,
+            "cpuPct": 0,
+            "state": "S (sleeping)"
+          },
+          "pg": {
+            "ok": true,
+            "connections": {
+              "total": 21,
+              "byState": {
+                "active": 1,
+                "idle": 20
+              }
+            },
+            "sizes": {
+              "dbBytes": 4669273791,
+              "usersBytes": 1654784,
+              "shortenUrlBytes": 4659527680
+            },
+            "counts": {
+              "users": 8707,
+              "urls": 23218573
+            }
+          },
+          "system": {
+            "cores": 8,
+            "loadAvg": {
+              "1m": 16.57,
+              "5m": 14.09,
+              "15m": 14.26
+            },
+            "mem": {
+              "totalBytes": 16461279232,
+              "freeBytes": 6317993984,
+              "usedBytes": 10143285248,
+              "freePct": 38.38094169326828
+            }
+          },
+          "nodeClients": [
+            {
+              "pid": 228083,
+              "rssKb": 115984,
+              "vszKb": 1366308,
+              "cpuPct": 24.8,
+              "kind": "threshold-read"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "targetRps": 3500,
+      "durationSec": 20,
+      "achievedRps": 2304.37606154461,
+      "requested": 46129,
+      "stats": {
+        "count": 46129,
+        "ok": 46129,
+        "errors": 0,
+        "errorRate": 0,
+        "elapsedSec": 20.01,
+        "rps": 2305.297351324338,
+        "latencyMs": {
+          "min": 4.498706,
+          "max": 124.743331,
+          "mean": 27.68803899787542,
+          "stddev": 14.717382132269012,
+          "p50": 24.858488,
+          "p90": 47.8071,
+          "p95": 55.258731,
+          "p99": 71.054742
+        },
+        "statusHistogram": {
+          "308": 46129
+        }
+      },
+      "env": {
+        "baseline": {
+          "ts": "2026-06-21T12:58:35.593Z",
+          "jvm": {
+            "found": true,
+            "pid": 32209,
+            "rssKb": 594616,
+            "vszKb": 9833668,
+            "threads": 107,
+            "fds": 239,
+            "cpuPct": 0.16,
+            "state": "S (sleeping)"
+          },
+          "pg": {
+            "ok": true,
+            "connections": {
+              "total": 21,
+              "byState": {
+                "active": 1,
+                "idle": 20
+              }
+            },
+            "sizes": {
+              "dbBytes": 4669273791,
+              "usersBytes": 1654784,
+              "shortenUrlBytes": 4659527680
+            },
+            "counts": {
+              "users": 8707,
+              "urls": 23218573
+            }
+          },
+          "system": {
+            "cores": 8,
+            "loadAvg": {
+              "1m": 16.57,
+              "5m": 14.09,
+              "15m": 14.26
+            },
+            "mem": {
+              "totalBytes": 16461279232,
+              "freeBytes": 6302633984,
+              "usedBytes": 10158645248,
+              "freePct": 38.287631812647696
+            }
+          },
+          "nodeClients": [
+            {
+              "pid": 228083,
+              "rssKb": 115984,
+              "vszKb": 1366308,
+              "cpuPct": 24.7,
+              "kind": "threshold-read"
+            }
+          ]
+        },
+        "during": {
+          "ts": "2026-06-21T12:58:56.485Z",
+          "jvm": {
+            "found": true,
+            "pid": 32209,
+            "rssKb": 594624,
+            "vszKb": 9833668,
+            "threads": 107,
+            "fds": 239,
+            "cpuPct": 0,
+            "state": "S (sleeping)"
+          },
+          "pg": {
+            "ok": true,
+            "connections": {
+              "total": 21,
+              "byState": {
+                "active": 1,
+                "idle": 20
+              }
+            },
+            "sizes": {
+              "dbBytes": 4669281983,
+              "usersBytes": 1654784,
+              "shortenUrlBytes": 4659535872
+            },
+            "counts": {
+              "users": 8707,
+              "urls": 23218573
+            }
+          },
+          "system": {
+            "cores": 8,
+            "loadAvg": {
+              "1m": 21.09,
+              "5m": 15.24,
+              "15m": 14.63
+            },
+            "mem": {
+              "totalBytes": 16461279232,
+              "freeBytes": 6315274240,
+              "usedBytes": 10146004992,
+              "freePct": 38.36441962373973
+            }
+          },
+          "nodeClients": [
+            {
+              "pid": 228083,
+              "rssKb": 115556,
+              "vszKb": 1365756,
+              "cpuPct": 26.5,
+              "kind": "threshold-read"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "targetRps": 4000,
+      "durationSec": 20,
+      "achievedRps": 2126.6170520952996,
+      "requested": 42577,
+      "stats": {
+        "count": 42577,
+        "ok": 42577,
+        "errors": 0,
+        "errorRate": 0,
+        "elapsedSec": 20.007,
+        "rps": 2128.105163192882,
+        "latencyMs": {
+          "min": 4.980697,
+          "max": 150.188509,
+          "mean": 30.002293142847027,
+          "stddev": 15.867988290764329,
+          "p50": 26.94907,
+          "p90": 51.555744,
+          "p95": 59.326302,
+          "p99": 76.599106
+        },
+        "statusHistogram": {
+          "308": 42577
+        }
+      },
+      "env": {
+        "baseline": {
+          "ts": "2026-06-21T12:58:57.315Z",
+          "jvm": {
+            "found": true,
+            "pid": 32209,
+            "rssKb": 594624,
+            "vszKb": 9833668,
+            "threads": 107,
+            "fds": 239,
+            "cpuPct": 0,
+            "state": "S (sleeping)"
+          },
+          "pg": {
+            "ok": true,
+            "connections": {
+              "total": 21,
+              "byState": {
+                "active": 1,
+                "idle": 20
+              }
+            },
+            "sizes": {
+              "dbBytes": 4669281983,
+              "usersBytes": 1654784,
+              "shortenUrlBytes": 4659535872
+            },
+            "counts": {
+              "users": 8707,
+              "urls": 23218573
+            }
+          },
+          "system": {
+            "cores": 8,
+            "loadAvg": {
+              "1m": 21.09,
+              "5m": 15.24,
+              "15m": 14.63
+            },
+            "mem": {
+              "totalBytes": 16461279232,
+              "freeBytes": 6304555008,
+              "usedBytes": 10156724224,
+              "freePct": 38.29930176838398
+            }
+          },
+          "nodeClients": [
+            {
+              "pid": 228083,
+              "rssKb": 115556,
+              "vszKb": 1365756,
+              "cpuPct": 26.3,
+              "kind": "threshold-read"
+            }
+          ]
+        },
+        "during": {
+          "ts": "2026-06-21T12:59:18.220Z",
+          "jvm": {
+            "found": true,
+            "pid": 32209,
+            "rssKb": 594636,
+            "vszKb": 9833668,
+            "threads": 107,
+            "fds": 239,
+            "cpuPct": 0,
+            "state": "S (sleeping)"
+          },
+          "pg": {
+            "ok": true,
+            "connections": {
+              "total": 21,
+              "byState": {
+                "active": 1,
+                "idle": 20
+              }
+            },
+            "sizes": {
+              "dbBytes": 4669281983,
+              "usersBytes": 1654784,
+              "shortenUrlBytes": 4659535872
+            },
+            "counts": {
+              "users": 8707,
+              "urls": 23218573
+            }
+          },
+          "system": {
+            "cores": 8,
+            "loadAvg": {
+              "1m": 21.61,
+              "5m": 15.69,
+              "15m": 14.79
+            },
+            "mem": {
+              "totalBytes": 16461279232,
+              "freeBytes": 6305214464,
+              "usedBytes": 10156064768,
+              "freePct": 38.30330787259195
+            }
+          },
+          "nodeClients": [
+            {
+              "pid": 228083,
+              "rssKb": 112996,
+              "vszKb": 1363948,
+              "cpuPct": 27.7,
+              "kind": "threshold-read"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "targetRps": 4500,
+      "durationSec": 20,
+      "achievedRps": 2002.5474525474526,
+      "requested": 40091,
+      "stats": {
+        "count": 40091,
+        "ok": 40091,
+        "errors": 0,
+        "errorRate": 0,
+        "elapsedSec": 20,
+        "rps": 2004.55,
+        "latencyMs": {
+          "min": 5.497843,
+          "max": 144.97844,
+          "mean": 31.856855124666456,
+          "stddev": 16.71876162752992,
+          "p50": 28.674848,
+          "p90": 54.674207,
+          "p95": 62.860598,
+          "p99": 80.419309
+        },
+        "statusHistogram": {
+          "308": 40091
+        }
+      },
+      "env": {
+        "baseline": {
+          "ts": "2026-06-21T12:59:19.051Z",
+          "jvm": {
+            "found": true,
+            "pid": 32209,
+            "rssKb": 594636,
+            "vszKb": 9833668,
+            "threads": 107,
+            "fds": 239,
+            "cpuPct": 0,
+            "state": "S (sleeping)"
+          },
+          "pg": {
+            "ok": true,
+            "connections": {
+              "total": 21,
+              "byState": {
+                "active": 1,
+                "idle": 20
+              }
+            },
+            "sizes": {
+              "dbBytes": 4669281983,
+              "usersBytes": 1654784,
+              "shortenUrlBytes": 4659535872
+            },
+            "counts": {
+              "users": 8707,
+              "urls": 23218573
+            }
+          },
+          "system": {
+            "cores": 8,
+            "loadAvg": {
+              "1m": 20.36,
+              "5m": 15.53,
+              "15m": 14.74
+            },
+            "mem": {
+              "totalBytes": 16461279232,
+              "freeBytes": 6308917248,
+              "usedBytes": 10152361984,
+              "freePct": 38.325801774480226
+            }
+          },
+          "nodeClients": [
+            {
+              "pid": 228083,
+              "rssKb": 116512,
+              "vszKb": 1364404,
+              "cpuPct": 27.6,
+              "kind": "threshold-read"
+            }
+          ]
+        },
+        "during": {
+          "ts": "2026-06-21T12:59:40.079Z",
+          "jvm": {
+            "found": true,
+            "pid": 32209,
+            "rssKb": 594648,
+            "vszKb": 9833668,
+            "threads": 107,
+            "fds": 239,
+            "cpuPct": 0,
+            "state": "S (sleeping)"
+          },
+          "pg": {
+            "ok": true,
+            "connections": {
+              "total": 21,
+              "byState": {
+                "active": 1,
+                "idle": 20
+              }
+            },
+            "sizes": {
+              "dbBytes": 4669281983,
+              "usersBytes": 1654784,
+              "shortenUrlBytes": 4659535872
+            },
+            "counts": {
+              "users": 8707,
+              "urls": 23218573
+            }
+          },
+          "system": {
+            "cores": 8,
+            "loadAvg": {
+              "1m": 23.24,
+              "5m": 16.5,
+              "15m": 15.08
+            },
+            "mem": {
+              "totalBytes": 16461279232,
+              "freeBytes": 6296801280,
+              "usedBytes": 10164477952,
+              "freePct": 38.2521989406467
+            }
+          },
+          "nodeClients": [
+            {
+              "pid": 228083,
+              "rssKb": 115960,
+              "vszKb": 1366024,
+              "cpuPct": 28.8,
+              "kind": "threshold-read"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "runAt": "2026-06-21T12:59:40.080Z"
+}

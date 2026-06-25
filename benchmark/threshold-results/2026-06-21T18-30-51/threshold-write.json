@@ -1,0 +1,202 @@
+{
+  "name": "threshold-write",
+  "kind": "threshold",
+  "target": "write",
+  "startRps": 200,
+  "endRps": 3500,
+  "stepRps": 300,
+  "stepDurationSec": 20,
+  "concurrency": 128,
+  "steps": [
+    {
+      "targetRps": 200,
+      "durationSec": 20,
+      "achievedRps": 206.22624963460976,
+      "requested": 4233,
+      "stats": {
+        "count": 4105,
+        "ok": 4105,
+        "errors": 0,
+        "errorRate": 0,
+        "elapsedSec": 19.827,
+        "rps": 207.0409038180259,
+        "latencyMs": {
+          "min": 4.85254,
+          "max": 152.958858,
+          "mean": 29.66977291887935,
+          "stddev": 19.932431820712882,
+          "p50": 25.354948,
+          "p90": 46.433623,
+          "p95": 63.210552,
+          "p99": 125.317412
+        },
+        "statusHistogram": {
+          "201": 4105
+        }
+      }
+    },
+    {
+      "targetRps": 500,
+      "durationSec": 20,
+      "achievedRps": 506.3165717116671,
+      "requested": 10220,
+      "stats": {
+        "count": 10092,
+        "ok": 10092,
+        "errors": 0,
+        "errorRate": 0,
+        "elapsedSec": 19.963,
+        "rps": 505.5352401943595,
+        "latencyMs": {
+          "min": 4.93462,
+          "max": 123.47389,
+          "mean": 31.406528891498176,
+          "stddev": 17.626033018047597,
+          "p50": 27.440677,
+          "p90": 56.48127,
+          "p95": 64.243758,
+          "p99": 85.821312
+        },
+        "statusHistogram": {
+          "201": 10092
+        }
+      }
+    },
+    {
+      "targetRps": 800,
+      "durationSec": 20,
+      "achievedRps": 805.9970014992504,
+      "requested": 16128,
+      "stats": {
+        "count": 16001,
+        "ok": 16001,
+        "errors": 0,
+        "errorRate": 0,
+        "elapsedSec": 19.997,
+        "rps": 800.1700255038256,
+        "latencyMs": {
+          "min": 10.480335,
+          "max": 144.046194,
+          "mean": 58.158693136866425,
+          "stddev": 23.162040964410203,
+          "p50": 57.327591,
+          "p90": 87.256289,
+          "p95": 100.445782,
+          "p99": 120.834656
+        },
+        "statusHistogram": {
+          "201": 16001
+        }
+      }
+    },
+    {
+      "targetRps": 1100,
+      "durationSec": 20,
+      "achievedRps": 1052.3041703991241,
+      "requested": 21145,
+      "stats": {
+        "count": 21145,
+        "ok": 21145,
+        "errors": 0,
+        "errorRate": 0,
+        "elapsedSec": 20.065,
+        "rps": 1053.8250685272862,
+        "latencyMs": {
+          "min": 7.199493,
+          "max": 724.067924,
+          "mean": 99.02383050683409,
+          "stddev": 68.91253460073612,
+          "p50": 80.413437,
+          "p90": 195.489268,
+          "p95": 236.436919,
+          "p99": 321.132391
+        },
+        "statusHistogram": {
+          "201": 21145
+        }
+      }
+    },
+    {
+      "targetRps": 1400,
+      "durationSec": 20,
+      "achievedRps": 1082.8517337584697,
+      "requested": 21735,
+      "stats": {
+        "count": 21735,
+        "ok": 21735,
+        "errors": 0,
+        "errorRate": 0,
+        "elapsedSec": 20.051,
+        "rps": 1083.9858361178995,
+        "latencyMs": {
+          "min": 9.719052,
+          "max": 539.590855,
+          "mean": 117.64410072818067,
+          "stddev": 72.69533631073823,
+          "p50": 108.658856,
+          "p90": 216.501623,
+          "p95": 253.251048,
+          "p99": 327.961928
+        },
+        "statusHistogram": {
+          "201": 21735
+        }
+      }
+    },
+    {
+      "targetRps": 1700,
+      "durationSec": 20,
+      "achievedRps": 1170.8119423814983,
+      "requested": 23490,
+      "stats": {
+        "count": 23490,
+        "ok": 23490,
+        "errors": 0,
+        "errorRate": 0,
+        "elapsedSec": 20.044,
+        "rps": 1171.921772101377,
+        "latencyMs": {
+          "min": 10.279671,
+          "max": 641.517794,
+          "mean": 108.85175489242191,
+          "stddev": 68.88401882101891,
+          "p50": 100.661795,
+          "p90": 200.522643,
+          "p95": 234.035492,
+          "p99": 319.28688
+        },
+        "statusHistogram": {
+          "201": 23490
+        }
+      }
+    },
+    {
+      "targetRps": 2000,
+      "durationSec": 20,
+      "achievedRps": 977.4593222869084,
+      "requested": 19644,
+      "stats": {
+        "count": 19644,
+        "ok": 19644,
+        "errors": 0,
+        "errorRate": 0,
+        "elapsedSec": 20.075,
+        "rps": 978.5305105853051,
+        "latencyMs": {
+          "min": 12.711344,
+          "max": 611.35918,
+          "mean": 130.347395660864,
+          "stddev": 81.30788632102704,
+          "p50": 120.3747,
+          "p90": 240.548357,
+          "p95": 281.452606,
+          "p99": 370.926524
+        },
+        "statusHistogram": {
+          "201": 19644
+        }
+      }
+    }
+  ],
+  "runAt": "2026-06-21T11:37:14.369Z"
+}
