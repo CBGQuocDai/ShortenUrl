@@ -3,6 +3,7 @@ package com.backend.auth.controller;
 
 import com.backend.auth.dto.request.LoginRequest;
 import com.backend.auth.dto.request.RegisterRequest;
+import com.backend.auth.dto.request.VerifyOtpRequest;
 import com.backend.auth.dto.response.TokenResponse;
 import com.backend.auth.dto.response.UserResponse;
 import com.backend.auth.service.AuthService;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/auth")
 @RequiredArgsConstructor
 public class AuthController {
-
     private final AuthService authService;
     @PostMapping("/login")
     public ResponseEntity<ApiResponse<TokenResponse>> login(@Valid @RequestBody LoginRequest loginRequest) {
@@ -29,10 +29,16 @@ public class AuthController {
         authService.handleRegister(registerRequest);
         return ResponseEntity.ok(ApiResponse.builder().build());
     }
+
     @GetMapping("/me")
     public ResponseEntity<ApiResponse<UserResponse>> me() {
         return ResponseEntity.ok(ApiResponse.<UserResponse>builder()
                         .data(authService.getMe())
                 .build());
+    }
+    @PostMapping("/otp-verify")
+    public ResponseEntity<ApiResponse<?>> otpVerify(@Valid @RequestBody VerifyOtpRequest verifyOtpRequest) {
+        authService.activateAccount(verifyOtpRequest);
+        return ResponseEntity.ok(ApiResponse.builder().build());
     }
 }

@@ -31,14 +31,15 @@ public class SecurityConfig {
 
     private static final String[] AUTH_WHITELIST = {
             "/auth/login",
-            "/auth/register"
+            "/auth/register",
+            "/auth/otp-verify"
     };
 
     private final AuthEntryPoint authEntryPoint;
     private final AuthAccessDeniedHandler authAccessDeniedHandler;
 
     @Bean
-    public SecurityFilterChain httpSecurity(HttpSecurity http, JwtFilter jwtFilter) throws Exception {
+    public SecurityFilterChain httpSecurity(HttpSecurity http, JwtFilter jwtFilter) {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))

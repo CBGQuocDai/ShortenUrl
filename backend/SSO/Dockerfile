@@ -1,17 +1,32 @@
-FROM eclipse-temurin:21-jdk AS build
-WORKDIR /workspace
+# stage 1: build .jar
+FROM maven:3.9.9-eclipse-temurin-21 AS build
 
-COPY mvnw .
-COPY .mvn .mvn
+WORKDIR /builder
+
 COPY pom.xml .
-RUN chmod +x mvnw && ./mvnw -B -q -DskipTests dependency:go-offline
+COPY src ./src
 
-COPY src src
-RUN ./mvnw -B -q -DskipTests package
+RUN mvn clean package -DskipTests
 
-FROM eclipse-temurin:21-jre
+
+# stage 2: extract .jar layers
+FROM eclipse-temurin:21-jre-jammy AS extract
+
+WORKDIR /builder
+
+COPY --from=build /builder/target/*.jar app.jar
+
+RUN java -Djarmode=tools -jar app.jar extract --layers --destination extracted
+
+# stage 3: runtime environment
+FROM eclipse-temurin:21-jre-jammy
 WORKDIR /app
-COPY --from=build /workspace/target/*.jar app.jar
+
+COPY --from=extract /builder/extracted/dependencies/ ./
+COPY --from=extract /builder/extracted/spring-boot-loader/ ./
+COPY --from=extract /builder/extracted/snapshot-dependencies/ ./
+COPY --from=extract /builder/extracted/application/ ./
 
 EXPOSE 8080
-ENTRYPOINT ["java","-jar","/app/app.jar"]
+
+ENTRYPOINT ["java", "org.springframework.boot.loader.launch.JarLauncher"]

@@ -1,62 +1,8 @@
-version: "3.8"
-
 services:
-  # ==========================================
-  # SSO Service & DB & Cache
-  # ==========================================
-  sso-db:
-    image: postgres:15-alpine
-    restart: always
-    env_file:
-      - .env.sso.db
-    ports:
-      - "5432:5432"
-    volumes:
-      - sso_db_data:/var/lib/postgresql/data
-
-  sso-redis:
-    image: redis:7-alpine
-    restart: always
-    ports:
-      - "6379:6379"
-    volumes:
-      - sso_redis_data:/data
-
-  sso-service:
-    build:
-      context: ./backend/SSO
-      dockerfile: Dockerfile
-    restart: always
-    ports:
-      - "8080:8080"
-      - "9090:9090"
-    env_file:
-      - .env.sso.service
-    depends_on:
-      - sso-db
-      - sso-redis
 
   # ==========================================
   # Go ShortenUrl Service & DB & Cache
   # ==========================================
-  shorten-db:
-    image: mysql:8.0
-    restart: always
-    env_file:
-      - .env.shorten.db
-    ports:
-      - "5433:3306"
-    volumes:
-      - shorten_db_data:/var/lib/mysql
-
-  shorten-redis:
-    image: redis:7-alpine
-    restart: always
-    ports:
-      - "6380:6379"
-    volumes:
-      - shorten_redis_data:/data
-
   go-shorten-service:
     build:
       context: ./backend/shorten-api
@@ -65,11 +11,7 @@ services:
     ports:
       - "8081:4000"
     env_file:
-      - .env.shorten.service
-    depends_on:
-      - shorten-db
-      - shorten-redis
-      - sso-service
+      - ./backend/shorten-api/.env
 
   # ==========================================
   # Web / Frontend
@@ -82,11 +24,4 @@ services:
     ports:
       - "3000:80"
     depends_on:
-      - sso-service
       - go-shorten-service
-
-volumes:
-  sso_db_data:
-  sso_redis_data:
-  shorten_db_data:
-  shorten_redis_data:

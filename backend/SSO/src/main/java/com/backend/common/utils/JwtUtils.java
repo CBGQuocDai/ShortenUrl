@@ -4,6 +4,7 @@ import com.backend.common.utils.properties.JwtProperties;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
@@ -37,6 +38,7 @@ public class JwtUtils {
                 .compact();
     }
 
+    @Cacheable(value = "jwt",key = "#token")
     public Claims parseToken(String token) {
         return Jwts.parser()
                 .verifyWith(key)

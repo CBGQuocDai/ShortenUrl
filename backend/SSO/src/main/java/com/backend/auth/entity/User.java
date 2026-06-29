@@ -34,7 +34,7 @@ public class User implements UserDetails, Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true, length = 20)
+    @Column(nullable = false, unique = true, length = 255)
     private String username;
 
     @Column(nullable = false)
@@ -46,7 +46,8 @@ public class User implements UserDetails, Serializable {
 
     @Column(nullable = false)
     @Builder.Default
-    private boolean enabled = true;
+    private boolean enabled = false;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

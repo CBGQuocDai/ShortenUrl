@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 public class RegisterRequest {
 
-    @Size(min=5, max=20, message="USERNAME_INVALID")
+    @Size(min=5, max=255, message="USERNAME_INVALID")
     private String username;
     @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$", message = "PASSWORD_INVALID_FORMAT")
     private String password;
