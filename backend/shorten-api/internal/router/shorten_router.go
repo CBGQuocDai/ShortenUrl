@@ -13,8 +13,8 @@ import (
 
 func RegisterShortenRoutes(rg *gin.RouterGroup, db *gorm.DB, rdb *redis.Client) {
 	shortenUrlRepository := repository.NewShortenUrlRepository(db)
-	shortenUrlService := service.NewShortenUrlService(*shortenUrlRepository, rdb)
-	shortenController := controller.NewShortenController(*shortenUrlService)
+	shortenUrlService := service.NewShortenUrlService(shortenUrlRepository, rdb)
+	shortenController := controller.NewShortenController(shortenUrlService)
 	r := rg.Group("/shorten")
 	r.GET("/:shortenCode", shortenController.GetOriginalUrl) // Public access to redirect
 

@@ -9,10 +9,10 @@ import (
 )
 
 type ShortenController struct {
-	shortenService service.ShortenUrlService
+	shortenService *service.ShortenUrlService
 }
 
-func NewShortenController(shortenService service.ShortenUrlService) *ShortenController {
+func NewShortenController(shortenService *service.ShortenUrlService) *ShortenController {
 	return &ShortenController{
 		shortenService: shortenService,
 	}
@@ -27,13 +27,11 @@ func (c *ShortenController) CreateShortenUrl(ctx *gin.Context) {
 		ctx.JSON(400, gin.H{"message": "invalid request", "error": err.Error()})
 		return
 	}
-
 	data, err := c.shortenService.CreateShortenUrl(&req, userId)
 	if err != nil {
 		ctx.JSON(400, gin.H{"message": "error creating shortened URL", "error": err.Error()})
 		return
 	}
-
 	ctx.JSON(200, gin.H{
 		"message": "created",
 		"data":    data,

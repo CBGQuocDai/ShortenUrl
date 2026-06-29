@@ -15,13 +15,13 @@ import (
 )
 
 type ShortenUrlService struct {
-	shortenUrlRepository repository.ShortenUrlRepository
+	shortenUrlRepository *repository.ShortenUrlRepository
 	rdb                  *redis.Client
 	clicks               chan uint64
 	idCache              sync.Map
 }
 
-func NewShortenUrlService(shortenUrlRepository repository.ShortenUrlRepository, rdb *redis.Client) *ShortenUrlService {
+func NewShortenUrlService(shortenUrlRepository *repository.ShortenUrlRepository, rdb *redis.Client) *ShortenUrlService {
 	s := &ShortenUrlService{
 		shortenUrlRepository: shortenUrlRepository,
 		rdb:                  rdb,

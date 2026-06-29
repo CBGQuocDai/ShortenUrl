@@ -25,7 +25,7 @@ func init() {
 	ssoHost := os.Getenv("SSO_API_HOST")
 	if ssoHost == "" {
 		// Use docker service name as default or localized testing
-		ssoHost = "http://localhost:8080"
+		ssoHost = "http://100.89.19.104:8080"
 	}
 	ssoApiUrl = ssoHost + "/api/auth/me"
 }
